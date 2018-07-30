@@ -15,10 +15,12 @@ class Prop(object):
 		self.speed = [0.0, 0.0]
 		self.maxSpeed = maxSpeed
 		self.acceleration = acceleration
+		self.deceleration = deceleration
 
 		self.rect = self.makeRect()
 
 	def makeRect(self):
+		self.rect = None
 		return rect.Rect(self.X - (self.Xs / 2), self.Y - (self.Ys / 2), 
 			self.Xs, self.Ys)
 
@@ -31,20 +33,23 @@ class Prop(object):
 		self.rect = self.makeRect()
 
 	def push(self, direction, frameTime):
-		self.speed[0] += ((direction[0] * self.acceleration) * frameTime)
-		if (self.speed[0] > self.maxSpeed):
-			self.speed[0] = self.maxSpeed
-		elif (self.speed[0] < self.maxSpeed * -1.0):
-			self.speed[0] = self.maxSpeed * -1.0
+		if (direction[0] != 0):
+			self.speed[0] += ((direction[0] * self.acceleration) * frameTime)
+			if (abs(self.speed[0]) > self.maxSpeed * abs(direction[0])):
+				self.speed[0] = self.maxSpeed * direction[0]
+			'''elif (self.speed[0] < self.maxSpeed * direction[0]):
+				self.speed[0] = self.maxSpeed * direction[0]'''
 
-		self.speed[1] += ((direction[1] * self.acceleration) * frameTime)
-		if (self.speed[1] > self.maxSpeed):
-			self.speed[1] = self.maxSpeed
-		elif (self.speed[1] < self.maxSpeed * -1.0):
-			self.speed[1] = self.maxSpeed * -1.0
+		if (direction[1] != 0):
+			self.speed[1] += ((direction[1] * self.acceleration) * frameTime)
+			if (abs(self.speed[1]) > self.maxSpeed * abs(direction[1])):
+				self.speed[1] = self.maxSpeed * direction[1]
+			'''elif (self.speed[1] < self.maxSpeed * direction[1]):
+				self.speed[1] = self.maxSpeed * direction[1]'''
 
 	def slow(self, direction, frameTime):
 		self.speed[1]
 
 	def tick(self, frameTime):
+		print("Speed: " + str(self.speed))
 		self.move(self.speed)

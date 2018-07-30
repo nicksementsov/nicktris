@@ -47,7 +47,7 @@ if __name__ == '__main__':
 	# Game setup
 	GAME_COLOURS = gc.GAME_COLOURS()
 
-	playerOne = prop.Prop(True, 25, 360, 10, 30)
+	playerOne = prop.Prop(True, 100, 360, 10, 30)
 	playerController = controller.Controller(playerOne)
 
 	inMan = inputmanager.InputManager()
@@ -60,6 +60,12 @@ if __name__ == '__main__':
 
 	# TODO Sound setup
 
+	# TODO Load Level
+	TEST_RECT = pygame.Rect(2, 2, 22, 717)
+	TEST_COLL = [TEST_RECT]
+
+	TEST_RECT2 = pygame.Rect(2, 2, 1277, 22)
+	TEST_COLL.append(TEST_RECT2)
 
 	# Start loop
 	frameTime = 0
@@ -92,6 +98,12 @@ if __name__ == '__main__':
 		for actor in gameActors:
 			actor.tick(frameTime)
 
+		# Test Collisions
+		for actor in gameActors:
+			collisions = actor.getRect().collidelistall(TEST_COLL)
+			for coll in collisions:
+				print(TEST_COLL[coll])
+
 
 		#****************************************************
 		# Draw debug stuff
@@ -111,6 +123,12 @@ if __name__ == '__main__':
 					1)
 				arrowSurface = drawArrow(actor.getRect())
 				gameScreen.blit(arrowSurface, actor.getRect())
+
+			for test_rect in TEST_COLL:
+				pygame.draw.rect(gameScreen,
+					GAME_COLOURS.BLUE,
+					test_rect,
+					1)
 		#****************************************************
 
 

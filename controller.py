@@ -1,4 +1,5 @@
 # Controller
+from math import sqrt
 import gamecommons as gc
 import prop
 
@@ -34,13 +35,21 @@ class Controller(object):
 			self.impulse[0] += 1.0 * mod
 
 	def tick(self, frameTime):
-		if (self.impulse[0] != 0.0):
-			self.ownProp.push((self.impulse[0], 0.0), frameTime)
+		
+		newPush = self.impulse.copy()
+		
+		if (abs(newPush[0]) == 1.0 and abs(newPush[1]) == 1.0):
+			ratio = sqrt(pow(1.0, 2.0) / 2.0)
+			newPush[0] *= ratio
+			newPush[1] *= ratio
+
+		if (newPush[0] != 0.0):
+			self.ownProp.push((newPush[0], 0.0), frameTime)
 		else:
 			self.ownProp.speed[0] = 0.0
 
-		if (self.impulse[1] != 0.0):
-			self.ownProp.push((0.0, self.impulse[1]), frameTime)
+		if (newPush[1] != 0.0):
+			self.ownProp.push((0.0, newPush[1]), frameTime)
 		else:
 			self.ownProp.speed[1] = 0.0
 
