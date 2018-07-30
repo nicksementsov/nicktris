@@ -18,10 +18,10 @@ USER_KEYS_NUM = {119:	'HAT_N',		# w
 					100:	'HAT_E',	# d
 					27:		'ESCAPE'}	# ESCAPE
 
-CONTR_BINDS = {	119:	0,
-				115:	1,
-				97:		2,
-				100:	3}
+CONTR_BINDS = {	119:	0,		# Hat north
+				115:	1,		# Hat south
+				97:		2,		# Hat west
+				100:	3}		# Hat east
 
 GAME_COLOURS = {'BLACK'}
 

@@ -33,12 +33,6 @@ class Controller(object):
 		elif (direction == 3):
 			self.impulse[0] += 1.0 * mod
 
-	def addImpulse(self, newImpulse):
-		if (newImpulse[0] != None):
-			self.impulse[0] += newImpulse[0]
-		if (newImpulse[1] != None):
-			self.impulse[1] += newImpulse[1]
-
 	def tick(self, frameTime):
 		if (self.impulse[0] != 0.0):
 			self.ownProp.push((self.impulse[0], 0.0), frameTime)
