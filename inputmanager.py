@@ -33,22 +33,8 @@ class InputManager(object):
 
 		# Send a move event to an attached NTController
 		elif ('HAT_' in gc.USER_KEYS_NUM.get(newEvent.key, None)):
-			if (newEvent.key == 119):
-				self.controllers[0].addImpulse((None, -1.0))
-			elif (newEvent.key == 115):
-				self.controllers[0].addImpulse((None, 1.0))
-			elif (newEvent.key == 97):
-				self.controllers[0].addImpulse((-1.0, None))
-			elif (newEvent.key == 100):
-				self.controllers[0].addImpulse((1.0, None))
+			self.controllers[0].modHat(gc.CONTR_BINDS.get(newEvent.key, None), 1.0)
 
 	def releaseKey(self, newEvent):
 		if ('HAT_' in gc.USER_KEYS_NUM.get(newEvent.key, None)):
-			if (newEvent.key == 119):
-				self.controllers[0].addImpulse((None, 1.0))
-			elif (newEvent.key == 115):
-				self.controllers[0].addImpulse((None, -1.0))
-			elif (newEvent.key == 97):
-				self.controllers[0].addImpulse((1.0, None))
-			elif (newEvent.key == 100):
-				self.controllers[0].addImpulse((-1.0, None))
+			self.controllers[0].modHat(gc.CONTR_BINDS.get(newEvent.key, None), -1.0)

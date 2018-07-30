@@ -20,6 +20,19 @@ class Controller(object):
 	def dispossess(self):
 		self.ownProp = None
 
+	def modHat(self, direction, mod):
+		'''Press or release a HAT direction'''
+		# 0: North, 1: South, 2: West, 3: East
+		if (direction == 0):
+			self.impulse[1] += -1.0 * mod
+		elif (direction == 1):
+			self.impulse[1] += 1.0 * mod
+
+		if (direction == 2):
+			self.impulse[0] += -1.0 * mod
+		elif (direction == 3):
+			self.impulse[0] += 1.0 * mod
+
 	def addImpulse(self, newImpulse):
 		if (newImpulse[0] != None):
 			self.impulse[0] += newImpulse[0]

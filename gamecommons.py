@@ -18,6 +18,11 @@ USER_KEYS_NUM = {119:	'HAT_N',		# w
 					100:	'HAT_E',	# d
 					27:		'ESCAPE'}	# ESCAPE
 
+CONTR_BINDS = {	119:	0,
+				115:	1,
+				97:		2,
+				100:	3}
+
 GAME_COLOURS = {'BLACK'}
 
 class GAME_COLOURS(object):
