@@ -2,8 +2,10 @@ import sys
 import pygame
 
 import prop
+import character
 import inputmanager
 import controller
+import triscontroller
 import gamecommons as gc
 
 size = width, height = 1280, 720
@@ -47,14 +49,26 @@ if __name__ == '__main__':
 	# Game setup
 	GAME_COLOURS = gc.GAME_COLOURS()
 
-	playerOne = prop.Prop(True, 100, 360, 10, 30)
+	playerOne = prop.Prop(True, 100, 360, 10, 20)
+	playerTwo = character.Character(True, 200, 360, 16, 32)
+	playerThree = prop.Prop(True, 800, 360)
+
 	playerController = controller.Controller(playerOne)
+	playerControllerTwo = controller.Controller(playerTwo)
+	ntController = triscontroller.TrisController(playerThree)
 
 	inMan = inputmanager.InputManager()
 	inMan.addController(playerController)
+	inMan.addController(playerControllerTwo)
+	inMan.addController(ntController)
 
 	gameActors = [playerOne]
+	gameActors.append(playerTwo)
+	gameActors.append(playerThree)
+
 	gameControllers = [playerController]
+	gameControllers.append(playerControllerTwo)
+	gameControllers.append(ntController)
 
 	# TODO Joystick setup
 
@@ -99,10 +113,10 @@ if __name__ == '__main__':
 			actor.tick(frameTime)
 
 		# Test Collisions
-		for actor in gameActors:
+		'''for actor in gameActors:
 			collisions = actor.getRect().collidelistall(TEST_COLL)
 			for coll in collisions:
-				print(TEST_COLL[coll])
+				print(TEST_COLL[coll])'''
 
 
 		#****************************************************
@@ -116,13 +130,26 @@ if __name__ == '__main__':
 			debugText[1].top = 1
 			gameScreen.blit(debugText[0], debugText[1])
 
+
+
+			debugText = drawText(DEBUG_FONT, 
+				str(playerOne.speed),
+				GAME_COLOURS.GREEN)
+
+			debugText[1].left = 30
+			debugText[1].top = 40
+			gameScreen.blit(debugText[0], debugText[1])
+
+			i = 0
+
 			for actor in gameActors:
 				pygame.draw.rect(gameScreen,
-					GAME_COLOURS.GREEN,
+					GAME_COLOURS.COLOURS[i],
 					actor.getRect(),
 					1)
 				arrowSurface = drawArrow(actor.getRect())
 				gameScreen.blit(arrowSurface, actor.getRect())
+				i += 1
 
 			for test_rect in TEST_COLL:
 				pygame.draw.rect(gameScreen,

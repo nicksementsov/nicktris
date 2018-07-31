@@ -2,7 +2,7 @@
 NTDEBUG = True
 SCREEN_X = 1280
 SCREEN_Y = 720
-MAXFPS = 60
+MAXFPS = 60.0
 
 # User keybinds by description
 USER_KEYS_DES = {	'HAT_N': 119,		# w
@@ -37,4 +37,5 @@ class GAME_COLOURS(object):
 		self.GREEN 	= 0,	 255,	0
 		self.RED	= 255,	 0,		0
 		self.BLUE 	= 0,	 0,		255
+		self.COLOURS = [self.GREEN, self.BLUE, self.RED, self.BLACK]
 		

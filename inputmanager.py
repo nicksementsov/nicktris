@@ -20,21 +20,23 @@ class InputManager(object):
 	def handleInput(self, newEvent, owner=0):
 		if (newEvent.type == pgc.KEYDOWN):
 			if (newEvent.key in gc.USER_KEYS_NUM.keys()):
-				self.pressKey(newEvent)
+				for controller in self.controllers:
+					self.pressKey(newEvent, controller)
 
 		elif (newEvent.type == pgc.KEYUP):
 			if (newEvent.key in gc.USER_KEYS_NUM.keys()):
-				self.releaseKey(newEvent)
+				for controller in self.controllers:
+					self.releaseKey(newEvent, controller)
 
-	def pressKey(self, newEvent):
+	def pressKey(self, newEvent, controller):
 		# Quit everything
 		if (newEvent.key == gc.USER_KEYS_DES.get('ESCAPE', None)):
 			event.post(event.Event(pgc.QUIT))
 
 		# Send a move event to an attached NTController
 		elif ('HAT_' in gc.USER_KEYS_NUM.get(newEvent.key, None)):
-			self.controllers[0].modHat(gc.CONTR_BINDS.get(newEvent.key, None), 1.0)
+			controller.modHat(gc.CONTR_BINDS.get(newEvent.key, None), 1.0)
 
-	def releaseKey(self, newEvent):
+	def releaseKey(self, newEvent, controller):
 		if ('HAT_' in gc.USER_KEYS_NUM.get(newEvent.key, None)):
-			self.controllers[0].modHat(gc.CONTR_BINDS.get(newEvent.key, None), -1.0)
+			controller.modHat(gc.CONTR_BINDS.get(newEvent.key, None), -1.0)

@@ -5,7 +5,7 @@ from pygame import rect
 class Prop(object):
 	"""Basic Nicktris class that has presence in the game world"""
 
-	def __init__(self, moveable, X=0, Y=0, Xs=10, Ys=10, maxSpeed=2.0, acceleration=0.2, deceleration=0.5):
+	def __init__(self, moveable, X=0, Y=0, Xs=10, Ys=10, maxSpeed=2.0):
 		super(Prop, self).__init__()
 		self.X = X		# X Position
 		self.Y = Y		# Y Position
@@ -14,9 +14,6 @@ class Prop(object):
 
 		self.speed = [0.0, 0.0]
 		self.maxSpeed = maxSpeed
-		self.acceleration = acceleration
-		self.deceleration = deceleration
-
 		self.rect = self.makeRect()
 
 	def makeRect(self):
@@ -27,29 +24,33 @@ class Prop(object):
 	def getRect(self):
 		return self.rect
 
-	def move(self, newLoc):
+	def move(self):
+		newLoc = self.speed.copy()
 		self.X += newLoc[0]
 		self.Y += newLoc[1]
 		self.rect = self.makeRect()
 
 	def push(self, direction, frameTime):
-		if (direction[0] != 0):
-			self.speed[0] += ((direction[0] * self.acceleration) * frameTime)
-			if (abs(self.speed[0]) > self.maxSpeed * abs(direction[0])):
-				self.speed[0] = self.maxSpeed * direction[0]
-			'''elif (self.speed[0] < self.maxSpeed * direction[0]):
-				self.speed[0] = self.maxSpeed * direction[0]'''
+		'''Push an Actor, forcing them to move at max speed next tick'''
+		def apush(aDirection, frameTime, axis):
+			if (aDirection[axis] != 0.0):
+				self.speed[axis] = self.maxSpeed * aDirection[axis]
+				if (abs(self.speed[axis]) > self.maxSpeed * abs(aDirection[axis])):
+					self.speed[axis] = self.maxSpeed * aDirection[axis]
+			else:
+				pass
+				#self.speed[axis] = 0.0
+		print(direction)
+		if (direction != (0.0, 0.0)):
+			apush(direction, frameTime, 0)
+			apush(direction, frameTime, 1)
+		else:
+			self.speed = [0.0, 0.0]
 
-		if (direction[1] != 0):
-			self.speed[1] += ((direction[1] * self.acceleration) * frameTime)
-			if (abs(self.speed[1]) > self.maxSpeed * abs(direction[1])):
-				self.speed[1] = self.maxSpeed * direction[1]
-			'''elif (self.speed[1] < self.maxSpeed * direction[1]):
-				self.speed[1] = self.maxSpeed * direction[1]'''
+	__push = push
 
 	def slow(self, direction, frameTime):
 		self.speed[1]
 
 	def tick(self, frameTime):
-		print("Speed: " + str(self.speed))
-		self.move(self.speed)
+		self.move()
