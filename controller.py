@@ -48,18 +48,9 @@ class Controller(object):
 
 	def applyImpulse(self, frameTime):
 		newPush = self.normImpulse()
-		self.ownProp.push((newPush[0], newPush[1]), frameTime)
+		# self.ownProp.push((newPush[0], newPush[1]), frameTime)
 		# X
-		'''if (newPush[0] != 0.0):
-									self.ownProp.push((newPush[0], 0.0), frameTime)
-								else:
-									self.ownProp.speed[0] = 0.0
-						
-								# Y
-								if (newPush[1] != 0.0):
-									self.ownProp.push((0.0, newPush[1]), frameTime)
-								else:
-									self.ownProp.speed[1] = 0.0'''
+		self.ownProp.push(newPush, frameTime)
 
 	__applyImpulse = applyImpulse
 

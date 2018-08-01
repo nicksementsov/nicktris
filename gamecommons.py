@@ -3,7 +3,7 @@ NTDEBUG = True
 SCREEN_X = 1280
 SCREEN_Y = 720
 MAXFPS = 60.0
-
+TAP_SPEED = 100
 # User keybinds by description
 USER_KEYS_DES = {	'HAT_N': 119,		# w
 					'HAT_S': 115,		# s

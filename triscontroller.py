@@ -6,14 +6,17 @@ class TrisController(controller.Controller):
 	def __init__(self, newProp=None):
 		super(TrisController, self).__init__(newProp)
 
-		self.jumpTime = 1000;
+		self.jumpTime = 500
 		self.jumpTimer = 0.0
-		self.canJump = True
+		self.jumpingTime = 0.0
+		self.startedJump = False
+		self.canJump = False
 
 	def applyImpulse(self, frameTime):
 		self.jumpTimer += frameTime
+
 		if (self.jumpTimer >= self.jumpTime):
-			self.ownProp.speed = [self.impulse[0] * 32, self.impulse[1] * 32]
 			self.jumpTimer = 0.0
+			self.ownProp.speed = [self.impulse[0] * 32, self.impulse[1] * 32]
 		else:
 			self.ownProp.speed = [0.0, 0.0]

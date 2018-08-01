@@ -48,27 +48,24 @@ if __name__ == '__main__':
 
 	# Game setup
 	GAME_COLOURS = gc.GAME_COLOURS()
-
-	playerOne = prop.Prop(True, 100, 360, 10, 20)
-	playerTwo = character.Character(True, 200, 360, 16, 32)
-	playerThree = prop.Prop(True, 800, 360)
-
-	playerController = controller.Controller(playerOne)
-	playerControllerTwo = controller.Controller(playerTwo)
-	ntController = triscontroller.TrisController(playerThree)
-
 	inMan = inputmanager.InputManager()
+
+	# Setup player 1
+	playerOne = character.Character(True, 200, 360, 16, 32)
+	playerController = controller.Controller(playerOne)
+
 	inMan.addController(playerController)
-	inMan.addController(playerControllerTwo)
-	inMan.addController(ntController)
-
 	gameActors = [playerOne]
-	gameActors.append(playerTwo)
-	gameActors.append(playerThree)
-
 	gameControllers = [playerController]
-	gameControllers.append(playerControllerTwo)
-	gameControllers.append(ntController)
+
+	# Setup additional players
+	# playerThree = prop.Prop(True, 800, 360)
+	# ntController = triscontroller.TrisController(playerThree)
+
+	# inMan.addController(ntController)
+	# gameActors.append(playerThree)
+	# gameControllers.append(ntController)
+
 
 	# TODO Joystick setup
 
@@ -76,9 +73,8 @@ if __name__ == '__main__':
 
 	# TODO Load Level
 	TEST_RECT = pygame.Rect(2, 2, 22, 717)
-	TEST_COLL = [TEST_RECT]
-
 	TEST_RECT2 = pygame.Rect(2, 2, 1277, 22)
+	TEST_COLL = [TEST_RECT]
 	TEST_COLL.append(TEST_RECT2)
 
 	# Start loop
@@ -113,11 +109,7 @@ if __name__ == '__main__':
 			actor.tick(frameTime)
 
 		# Test Collisions
-		'''for actor in gameActors:
-			collisions = actor.getRect().collidelistall(TEST_COLL)
-			for coll in collisions:
-				print(TEST_COLL[coll])'''
-
+		collisions = gameActors[0].getRect().collidelistall(TEST_COLL)
 
 		#****************************************************
 		# Draw debug stuff

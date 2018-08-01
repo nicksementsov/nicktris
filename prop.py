@@ -32,20 +32,7 @@ class Prop(object):
 
 	def push(self, direction, frameTime):
 		'''Push an Actor, forcing them to move at max speed next tick'''
-		def apush(aDirection, frameTime, axis):
-			if (aDirection[axis] != 0.0):
-				self.speed[axis] = self.maxSpeed * aDirection[axis]
-				if (abs(self.speed[axis]) > self.maxSpeed * abs(aDirection[axis])):
-					self.speed[axis] = self.maxSpeed * aDirection[axis]
-			else:
-				pass
-				#self.speed[axis] = 0.0
-		print(direction)
-		if (direction != (0.0, 0.0)):
-			apush(direction, frameTime, 0)
-			apush(direction, frameTime, 1)
-		else:
-			self.speed = [0.0, 0.0]
+		self.speed = [direction[0] * self.maxSpeed, direction[1] * self.maxSpeed]
 
 	__push = push
 

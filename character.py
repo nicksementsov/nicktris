@@ -13,7 +13,9 @@ class Character(prop.Prop):
 
 	def push(self, direction, frameTime):
 		'''Push an Actor, respecting their acceleration'''
-		def apush(aDirection, aFrameTime, axis):
+		super(Character, self).push(direction, frameTime)
+
+'''		def apush(aDirection, aFrameTime, axis):
 			if (direction[axis] != self.rotation[axis]):
 				dirDif = direction[axis] - self.rotation[axis]
 				if (abs(dirDif) < 0.005):
@@ -31,4 +33,4 @@ class Character(prop.Prop):
 
 		
 		apush(direction, frameTime, 0)
-		apush(direction, frameTime, 1)
+		apush(direction, frameTime, 1)'''
